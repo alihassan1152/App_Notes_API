@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
 from app.models import NoteCreate, NoteUpdate, NoteResponse, QuestionRequest
 from app.services import notes_service
-from app.services.ai_service import ask_about_notes
+from app.services.ai_service import ask_about_notes ,summarize_all_notes 
 
 router = APIRouter()
 
@@ -16,9 +16,18 @@ async def create_note(note: NoteCreate):
 async def ask_notes(request: QuestionRequest): 
     notes = await notes_service.get_all_notes()
     if not notes:
-        return {"answer": "Aap ke paas abhi koi note nahi hai."}
+        return {"summary": "Aap ke paas abhi koi note nahi hai."}
     answer = await ask_about_notes(notes, request.question)
     return {"answer": answer}     
+
+
+@router.get("/notes/summarize")
+async def summarize_notes():
+    note = await notes_service.get_all_notes()
+    if not note:
+        return {"answer": "Aap ke pas abhi koi notes nai hain."}
+    summary = await summarize_all_notes(note)
+    return {"summary": summary}
 
 
 @router.get("/notes", response_model=list[NoteResponse])
