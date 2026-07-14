@@ -1,6 +1,3 @@
-
-Achha, poora code padh liya hai. Chalo pura project simple Roman Urdu mein samjhata hun.
-
 Project kya hai
 
 Ye ek FastAPI based "Smart Notes API" hai — ek AI-powered notes app ka backend. User notes bana sakta hai, unka AI summary automatically generate hota hai, aur AI se apne notes ke baare mein sawal bhi puch sakta hai. Database MongoDB hai.
@@ -86,4 +83,3 @@ Kuch obvious improvements (sirf batana hai, change nahi kar raha)
 5. Ek App_Notes_API/ naam ka nested folder bhi dikha jisme apna separate .git hai — ye lagta hai accidentally nested repo clone ho gaya hai, check kar lena wo intentional hai ya cleanup chahiye.
 6. create_note mein agar AI summary generation fail ho jaye (jaise timeout), note phir bhi save ho jata hai summary: None ke sath — ye acha hai (graceful fallback), lekin ek retry mechanism add kiya ja sakta hai future mein.
 
-Koi specific file ya concept (jaise Pydantic, Motor/MongoDB async, ya AI integration) deeper samajhna ho to bata dena.
