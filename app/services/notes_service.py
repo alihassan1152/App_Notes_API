@@ -1,5 +1,5 @@
 from bson import ObjectId
-from datetime import datetime
+from datetime import datetime, timezone
 from app.database import notes_collection
 from app.models import NoteCreate, NoteUpdate
 from app.services.ai_service import generate_summary
@@ -20,7 +20,7 @@ def note_helper(note) -> dict:
 
 async def create_note(note: NoteCreate) -> dict:
     summary = await generate_summary(note.content)
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     note_doc = {
         "title": note.title,
         "content": note.content,
@@ -54,7 +54,7 @@ async def update_note(note_id: str, note_data: NoteUpdate) -> dict | None:
     update_fields = {k: v for k, v in note_data.model_dump().items() if v is not None}
     if not update_fields:
         return await get_note_by_id(note_id)
-    update_fields["updated_at"] = datetime.utcnow()
+    update_fields["updated_at"] = datetime.now(timezone.utc)
     await notes_collection.update_one(
         {"_id": ObjectId(note_id)}, {"$set": update_fields}
     )

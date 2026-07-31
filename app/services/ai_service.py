@@ -26,10 +26,13 @@ async def generate_summary(content):
         return None
     
 
+def _combine_notes_text(notes) -> str:
+    """Saare notes ka content ek hi text mein jorh do (dono AI functions ke liye common helper)."""
+    return "\n".join(note["content"] for note in notes)
+
+
 async def ask_about_notes(notes, question):
-        notes_text = ""
-        for note in notes:
-            notes_text += note["content"] + "\n"
+        notes_text = _combine_notes_text(notes)
         try:
             response = await client.chat.completions.create(
                 model="combo/free-fallback",
@@ -45,10 +48,8 @@ async def ask_about_notes(notes, question):
 
 
 async def summarize_all_notes(notes):
-        notes_text = ""
-        for note in notes:
-            notes_text += note["content"] + "\n"
-        try:    
+        notes_text = _combine_notes_text(notes)
+        try:
             response = await client.chat.completions.create(
                 model="combo/free-fallback",
                 messages=[
