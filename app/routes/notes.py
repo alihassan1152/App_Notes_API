@@ -1,7 +1,7 @@
 from fastapi import APIRouter, HTTPException, status
-from app.models import NoteCreate, NoteUpdate, NoteResponse, QuestionRequest
+from app.schemas.note import NoteCreate, NoteUpdate, NoteResponse, QuestionRequest
 from app.services import notes_service
-from app.services.ai_service import ask_about_notes ,summarize_all_notes 
+from app.services.ai_service import ask_about_notes, summarize_all_notes
 
 router = APIRouter()
 

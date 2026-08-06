@@ -1,11 +1,5 @@
-import os
 from openai import AsyncOpenAI
-from dotenv import load_dotenv
-
-load_dotenv()
-
-OMNIROUTE_KEY = os.getenv("OMNIROUTE_KEY")
-OMNIROUTE_URL = os.getenv("OMNIROUTE_URL")
+from app.core.config import OMNIROUTE_KEY, OMNIROUTE_URL
 
 client = AsyncOpenAI(
     base_url=OMNIROUTE_URL,
