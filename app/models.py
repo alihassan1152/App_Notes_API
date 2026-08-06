@@ -21,6 +21,8 @@ class NoteResponse(BaseModel):
     content: str
     tags: list[str] = []
     summary: Optional[str] = None  # AI se generate hoga
+    backlinks:list[str] = [] # kaun se notes mere ko link karte hain
+    links:list[str] = [] # [[wikilinks]] content se nikale jayenge
     created_at: datetime
     updated_at: datetime
 
